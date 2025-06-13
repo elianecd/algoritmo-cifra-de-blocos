@@ -1,19 +1,18 @@
 # Importa a função responsável por ler, cifrar/decifrar e escrever o conteúdo do arquivo
+import hashlib
 from file_handler import processar_arquivo
 
 def main():
     print("=== Cifra de Blocos - Projeto Inn Seguros ===")
 
     try:
-        # Solicita ao usuário que informe uma chave de 32 bits no formato hexadecimal (ex: A1B2C3D4)
-        chave_input = input("Informe a chave (em hexadecimal, ex: A1B2C3D4): ").strip()
-        
-        # Converte a chave hexadecimal em um número inteiro
-        chave = int(chave_input, 16)
+        # Entrada da string usada para gerar a chave
+        senha = input("Digite uma palavra-chave (ela será usada para gerar a chave criptográfica): ").strip()
 
-        # Verifica se a chave está no intervalo válido de 32 bits (0 até 2^32 - 1)
-        if not (0 <= chave <= 0xFFFFFFFF):
-            raise ValueError("A chave deve ter exatamente 32 bits.")
+        # Gera um hash SHA-256 da string e extrai os primeiros 4 bytes (32 bits)
+        hash_sha256 = hashlib.sha256(senha.encode()).digest()
+        chave = int.from_bytes(hash_sha256[:4], byteorder='big')
+        print(f"Chave de 32 bits gerada automaticamente: {hex(chave)}")
 
         # Solicita ao usuário o modo de operação: 'cifrar' ou 'decifrar'
         modo = input("Digite 'cifrar' para encriptar ou 'decifrar' para decriptar: ").strip().lower()

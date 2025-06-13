@@ -75,7 +75,7 @@ def substituicao_inversa(bloco, subchave):
     return resultado
 
 def permutacao(bloco, subchave, inverso=False):
-    #A plica rotação circular nos bits do bloco, com quantidade baseada na subchave.
+    # Aplica rotação circular nos bits do bloco, com quantidade baseada na subchave.
     # Isso promove difusão, espalhando pequenos padrões por todo o bloco.
 
     assert 0 <= bloco <= 0xFFFFFFFF, "O bloco deve ter exatamente 32 bits"
